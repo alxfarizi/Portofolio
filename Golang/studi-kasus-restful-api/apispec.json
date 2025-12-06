@@ -14,11 +14,11 @@
     "/tasks": {
       "get": {
         "tags": ["Tasks API"],
-        "description": "Get All Tasks",
-        "summary": "Get All Tasks",
+        "description": "Get all tasks",
+        "summary": "Get all tasks",
         "responses": {
           "200": {
-            "description": "Successful Get All Tasks",
+            "description": "Successful get all tasks",
             "content": {
               "application/json": {
                 "schema": {
@@ -45,36 +45,20 @@
       },
       "post":{
         "tags": ["Tasks API"],
-        "description": "Create new Task",
-        "summary": "Create new Task",
+        "description": "Create new task",
+        "summary": "Create new task",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string",
-                    "enum": ["pending", "in_progress", "done"]
-                  },
-                  "deadline": {
-                    "type": "string",
-                    "format": "date"
-                  }
-                }
+                "$ref": "#/components/schemas/CreateOrUpdateTasks"
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Success Create Tasks",
+          "200": {
+            "description": "Successful create tasks",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,10 +80,158 @@
           }
         }
       }
+    },
+    "/tasks/{tasksID}/": {
+      "get": {
+        "tags": ["Tasks API"],
+        "description": "Get task by Id",
+        "summary": "Get task by Id",
+        "parameters": [
+          {
+            "name": "tasksID",
+            "in": "path",
+            "description": "Tasks Id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful get task by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Tasks"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tasks API"],
+        "summary": "Update task by Id",
+        "description": "Update task by Id",
+        "parameters": [
+          {
+            "name": "tasksID",
+            "in": "path",
+            "description": "Tasks Id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateTasks"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful update task by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Tasks"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks API"],
+        "description": "Delete task by Id",
+        "summary": "Delete task by Id",
+        "parameters": [
+          {
+            "name": "tasksID",
+            "in": "path",
+            "description": "Tasks Id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful delete task by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "CreateOrUpdateTasks": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_progress",
+              "done"
+            ]
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
       "Tasks": {
         "type": "object",
         "properties": {
