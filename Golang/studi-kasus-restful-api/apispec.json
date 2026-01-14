@@ -13,6 +13,9 @@
   "paths": {
     "/tasks": {
       "get": {
+        "security": [{
+          "TaskAuth": []
+        }],
         "tags": ["Tasks API"],
         "description": "Get all tasks",
         "summary": "Get all tasks",
@@ -44,6 +47,9 @@
         }
       },
       "post":{
+        "security": [{
+          "TaskAuth": []
+        }],
         "tags": ["Tasks API"],
         "description": "Create new task",
         "summary": "Create new task",
@@ -83,6 +89,9 @@
     },
     "/tasks/{tasksID}/": {
       "get": {
+        "security": [{
+          "TaskAuth": []
+        }],
         "tags": ["Tasks API"],
         "description": "Get task by Id",
         "summary": "Get task by Id",
@@ -122,6 +131,9 @@
         }
       },
       "put": {
+        "security": [{
+          "TaskAuth": []
+        }],
         "tags": ["Tasks API"],
         "summary": "Update task by Id",
         "description": "Update task by Id",
@@ -170,6 +182,9 @@
         }
       },
       "delete": {
+        "security": [{
+          "TaskAuth": []
+        }],
         "tags": ["Tasks API"],
         "description": "Delete task by Id",
         "summary": "Delete task by Id",
@@ -208,6 +223,14 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "TaskAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "TASK-API-KEY",
+        "description": "Authentication for Tasks API"
+      }
+    },
     "schemas": {
       "CreateOrUpdateTasks": {
         "type": "object",
