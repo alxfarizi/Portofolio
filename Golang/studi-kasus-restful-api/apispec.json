@@ -13,31 +13,23 @@
   "paths": {
     "/tasks": {
       "get": {
-        "security": [{
-          "TaskAuth": []
-        }],
+        "security": [{ "TaskAuth": [] }],
         "tags": ["Tasks API"],
         "description": "Get all tasks",
         "summary": "Get all tasks",
         "responses": {
           "200": {
-            "description": "Successful get all tasks",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
+                    "code": { "type": "number" },
+                    "message": { "type": "string" },
                     "data": {
                       "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Tasks"
-                      }
+                      "items": { "$ref": "#/components/schemas/Task" }
                     }
                   }
                 }
@@ -46,39 +38,29 @@
           }
         }
       },
-      "post":{
-        "security": [{
-          "TaskAuth": []
-        }],
+      "post": {
+        "security": [{ "TaskAuth": [] }],
         "tags": ["Tasks API"],
         "description": "Create new task",
         "summary": "Create new task",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOrUpdateTasks"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateOrUpdateTask" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful create tasks",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/Tasks"
-                    }
+                    "code": { "type": "number" },
+                    "message": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Task" }
                   }
                 }
               }
@@ -87,42 +69,31 @@
         }
       }
     },
-    "/tasks/{tasksID}/": {
+    "/tasks/{taskId}": {
       "get": {
-        "security": [{
-          "TaskAuth": []
-        }],
+        "security": [{ "TaskAuth": [] }],
         "tags": ["Tasks API"],
         "description": "Get task by Id",
         "summary": "Get task by Id",
         "parameters": [
           {
-            "name": "tasksID",
+            "name": "taskId",
             "in": "path",
-            "description": "Tasks Id",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "integer" }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful get task by Id",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/Tasks"
-                    }
+                    "code": { "type": "number" },
+                    "message": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Task" }
                   }
                 }
               }
@@ -131,49 +102,36 @@
         }
       },
       "put": {
-        "security": [{
-          "TaskAuth": []
-        }],
+        "security": [{ "TaskAuth": [] }],
         "tags": ["Tasks API"],
-        "summary": "Update task by Id",
         "description": "Update task by Id",
+        "summary": "Update task by Id",
         "parameters": [
           {
-            "name": "tasksID",
+            "name": "taskId",
             "in": "path",
-            "description": "Tasks Id",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "integer" }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOrUpdateTasks"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateOrUpdateTask" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful update task by Id",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/Tasks"
-                    }
+                    "code": { "type": "number" },
+                    "message": { "type": "string" },
+                    "data": { "$ref": "#/components/schemas/Task" }
                   }
                 }
               }
@@ -182,37 +140,28 @@
         }
       },
       "delete": {
-        "security": [{
-          "TaskAuth": []
-        }],
+        "security": [{ "TaskAuth": [] }],
         "tags": ["Tasks API"],
         "description": "Delete task by Id",
         "summary": "Delete task by Id",
         "parameters": [
           {
-            "name": "tasksID",
+            "name": "taskId",
             "in": "path",
-            "description": "Tasks Id",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "integer" }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful delete task by Id",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
+                    "code": { "type": "number" },
+                    "message": { "type": "string" }
                   }
                 }
               }
@@ -227,58 +176,33 @@
       "TaskAuth": {
         "type": "apiKey",
         "in": "header",
-        "name": "TASK-API-KEY",
-        "description": "Authentication for Tasks API"
+        "name": "TASK-API-KEY"
       }
     },
     "schemas": {
-      "CreateOrUpdateTasks": {
+      "CreateOrUpdateTask": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
           "status": {
             "type": "string",
-            "enum": [
-              "pending",
-              "in_progress",
-              "done"
-            ]
+            "enum": ["pending", "in_progress", "done"]
           },
-          "deadline": {
-            "type": "string",
-            "format": "date"
-          }
+          "deadline": { "type": "string", "format": "date" }
         }
       },
-      "Tasks": {
+      "Task": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
+          "id": { "type": "number" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
           "status": {
             "type": "string",
-            "enum": [
-              "pending",
-              "in_progress",
-              "done"
-            ]
+            "enum": ["pending", "in_progress", "done"]
           },
-          "deadline": {
-            "type": "string",
-            "format": "date"
-          }
+          "deadline": { "type": "string", "format": "date" }
         }
       }
     }
