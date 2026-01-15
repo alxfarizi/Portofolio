@@ -6,9 +6,9 @@ import (
 )
 
 type TaskUpdateRequest struct {
-	Id          int
-	Title       string
-	Description string
-	Status      domain.TaskStatus
-	Deadline    time.Time
+	Id          int               `validate:"required"`
+	Title       string            `validate:"required, min=1, max=255"`
+	Description string            `validate:"required"`
+	Status      domain.TaskStatus `default:"PENDING"`
+	Deadline    time.Time         `validate:"required"`
 }

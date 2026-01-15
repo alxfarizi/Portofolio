@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"github.com/go-playground/validator/v10"
 	"studi-kasus-restful-api/helper"
 	"studi-kasus-restful-api/model/domain"
 	"studi-kasus-restful-api/model/web"
@@ -12,9 +13,13 @@ import (
 type TaskServiceImpl struct {
 	TaskRepository repository.TasksRepository
 	DB             *sql.DB
+	Validate       *validator.Validate
 }
 
 func (service *TaskServiceImpl) Create(ctx context.Context, request web.TaskCreateRequest) web.TaskResponse {
+	err := service.Validate.Struct(request)
+	helper.PanicIfError(err)
+
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOdRollback(tx)
@@ -27,11 +32,14 @@ func (service *TaskServiceImpl) Create(ctx context.Context, request web.TaskCrea
 	}
 
 	task = service.TaskRepository.Save(ctx, tx, task)
-	
+
 	return helper.ToTaskResponse(task)
 }
 
 func (service *TaskServiceImpl) Update(ctx context.Context, request web.TaskUpdateRequest) web.TaskResponse {
+	err := service.Validate.Struct(request)
+	helper.PanicIfError(err)
+
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOdRollback(tx)
