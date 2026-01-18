@@ -14,6 +14,12 @@ type TaskControllerImpl struct {
 	TaskService service.TaskService
 }
 
+func NewTaskController(taskService service.TaskService) TaskController {
+	return &TaskControllerImpl{
+		TaskService: taskService,
+	}
+}
+
 func (controller *TaskControllerImpl) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	taskCreateRequest := web.TaskCreateRequest{}
 	helper.ReadFromRequestBody(request, &taskCreateRequest)

@@ -11,6 +11,10 @@ import (
 type TasksRepositoryImpl struct {
 }
 
+func NewTaskRepository() TasksRepository {
+	return &TasksRepositoryImpl{}
+}
+
 func (repository *TasksRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, task domain.Task) domain.Task {
 	SQL := "INSERT INTO tasks (title, description, deadline, status) VALUES (?, ?, ?, ?)"
 	result, err := tx.ExecContext(ctx, SQL, task.Title, task.Description, task.Deadline, task.Status)

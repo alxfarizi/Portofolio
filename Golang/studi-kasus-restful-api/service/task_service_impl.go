@@ -3,17 +3,26 @@ package service
 import (
 	"context"
 	"database/sql"
-	"github.com/go-playground/validator/v10"
 	"studi-kasus-restful-api/helper"
 	"studi-kasus-restful-api/model/domain"
 	"studi-kasus-restful-api/model/web"
 	"studi-kasus-restful-api/repository"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type TaskServiceImpl struct {
 	TaskRepository repository.TasksRepository
 	DB             *sql.DB
 	Validate       *validator.Validate
+}
+
+func NewTaskService(taskRepository repository.TasksRepository, DB *sql.DB, validate *validator.Validate) TaskService {
+	return &TaskServiceImpl{
+		TaskRepository: taskRepository,
+		DB:             DB,
+		Validate:       validate,
+	}
 }
 
 func (service *TaskServiceImpl) Create(ctx context.Context, request web.TaskCreateRequest) web.TaskResponse {
