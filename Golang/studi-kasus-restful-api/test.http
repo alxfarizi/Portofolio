@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Get Category by ID
-GET http://localhost:3000/api/tasks/10
+GET http://localhost:3000/api/tasks/100
 Accept: application/json
 
 ### Update Category by ID

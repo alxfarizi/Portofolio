@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"studi-kasus-restful-api/exception"
 	"studi-kasus-restful-api/helper"
 	"studi-kasus-restful-api/model/domain"
 	"studi-kasus-restful-api/model/web"
@@ -54,7 +55,9 @@ func (service *TaskServiceImpl) Update(ctx context.Context, request web.TaskUpda
 	defer helper.CommitOdRollback(tx)
 
 	task, err := service.TaskRepository.FindById(ctx, tx, request.Id)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	task.Title = request.Title
 	task.Description = request.Description
@@ -72,7 +75,9 @@ func (service *TaskServiceImpl) Delete(ctx context.Context, taskId int) {
 	defer helper.CommitOdRollback(tx)
 
 	task, err := service.TaskRepository.FindById(ctx, tx, taskId)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	service.TaskRepository.Delete(ctx, tx, task)
 }
@@ -83,7 +88,9 @@ func (service *TaskServiceImpl) FindById(ctx context.Context, taskId int) web.Ta
 	defer helper.CommitOdRollback(tx)
 
 	task, err := service.TaskRepository.FindById(ctx, tx, taskId)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	return helper.ToTaskResponse(task)
 }

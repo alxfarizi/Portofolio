@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"studi-kasus-restful-api/exception"
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
@@ -30,6 +31,8 @@ func main() {
 	router.POST("/api/tasks", taskController.Create)
 	router.PUT("/api/tasks/:taskId", taskController.Update)
 	router.DELETE("/api/tasks/:taskId", taskController.Delete)
+
+	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
 		Addr:    "localhost:3000",
