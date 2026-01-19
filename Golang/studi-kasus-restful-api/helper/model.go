@@ -6,12 +6,19 @@ import (
 )
 
 func ToTaskResponse(task domain.Task) web.TaskResponse {
+	var deadlineStr string
+	if task.Deadline != nil {
+		deadlineStr = task.Deadline.Format("2006-01-02")
+	} else {
+		deadlineStr = ""
+	}
+
 	return web.TaskResponse{
 		Id:          task.Id,
 		Title:       task.Title,
 		Description: task.Description,
 		Status:      task.Status,
-		Deadline:    task.Deadline,
+		Deadline:    deadlineStr,
 	}
 }
 

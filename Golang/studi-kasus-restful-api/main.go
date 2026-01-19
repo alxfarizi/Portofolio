@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 
-	"net/http"
 	"studi-kasus-restful-api/app"
 	"studi-kasus-restful-api/controller"
 	"studi-kasus-restful-api/helper"
@@ -34,6 +36,7 @@ func main() {
 		Handler: router,
 	}
 
+	fmt.Println("Server is running on http://localhost:3000")
 	err := server.ListenAndServe()
 	helper.PanicIfError(err)
 }

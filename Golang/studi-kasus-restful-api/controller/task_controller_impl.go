@@ -38,7 +38,7 @@ func (controller *TaskControllerImpl) Update(writer http.ResponseWriter, request
 	taskUpdateRequest := web.TaskUpdateRequest{}
 	helper.ReadFromRequestBody(request, &taskUpdateRequest)
 
-	taskId := params.ByName("id")
+	taskId := params.ByName("taskId")
 	id, err := strconv.Atoi(taskId)
 	helper.PanicIfError(err)
 
@@ -55,7 +55,7 @@ func (controller *TaskControllerImpl) Update(writer http.ResponseWriter, request
 }
 
 func (controller *TaskControllerImpl) Delete(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	taskId := params.ByName("id")
+	taskId := params.ByName("taskId")
 	id, err := strconv.Atoi(taskId)
 	helper.PanicIfError(err)
 
@@ -69,7 +69,7 @@ func (controller *TaskControllerImpl) Delete(writer http.ResponseWriter, request
 }
 
 func (controller *TaskControllerImpl) FindById(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	taskId := params.ByName("id")
+	taskId := params.ByName("taskId")
 	id, err := strconv.Atoi(taskId)
 	helper.PanicIfError(err)
 

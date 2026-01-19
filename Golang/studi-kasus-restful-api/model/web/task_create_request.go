@@ -6,8 +6,8 @@ import (
 )
 
 type TaskCreateRequest struct {
-	Title       string            `validate:"required, min=1, max=255"`
-	Description string            `validate:"required"`
-	Status      domain.TaskStatus `default:"PENDING"`
-	Deadline    time.Time         `validate:"required"`
+	Title       string            `json:"title" validate:"required,min=1,max=255"`
+	Description string            `json:"description" validate:"required"`
+	Status      domain.TaskStatus `json:"status" validate:"required,oneof=pending in_progress completed"`
+	Deadline    *time.Time        `json:"deadline" validate:"omitempty"`
 }

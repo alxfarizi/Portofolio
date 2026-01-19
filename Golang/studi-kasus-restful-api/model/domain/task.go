@@ -5,9 +5,9 @@ import "time"
 type TaskStatus string
 
 const (
-	StatusPending    TaskStatus = "PENDING"
-	StatusInProgress TaskStatus = "IN_PROGRESS"
-	StatusCompleted  TaskStatus = "COMPLETED"
+	StatusPending    TaskStatus = "pending"
+	StatusInProgress TaskStatus = "in_progress"
+	StatusCompleted  TaskStatus = "completed"
 )
 
 type Task struct {
@@ -15,5 +15,5 @@ type Task struct {
 	Title       string     `json:"title"`
 	Description string     `json:"description"`
 	Status      TaskStatus `json:"status"`
-	Deadline    time.Time  `json:"deadline"`
+	Deadline    *time.Time `json:"deadline"`
 }
