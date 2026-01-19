@@ -1,9 +1,11 @@
 ### Get All Categories
 GET http://localhost:3000/api/tasks
+TASK-API-KEY: RAHASIA
 Accept: application/json
 
 ### Create New Category
 POST http://localhost:3000/api/tasks
+TASK-API-KEY: RAHASIA
 Accept: application/json
 Content-Type: application/json
 
@@ -16,10 +18,12 @@ Content-Type: application/json
 
 ### Get Category by ID
 GET http://localhost:3000/api/tasks/100
+TASK-API-KEY: RAHASIA
 Accept: application/json
 
 ### Update Category by ID
 PUT http://localhost:3000/api/tasks/10
+TASK-API-KEY: RAHASIA
 Accept: application/json
 Content-Type: application/json
 
@@ -32,4 +36,5 @@ Content-Type: application/json
 
 ### Delete Category by ID
 DELETE http://localhost:3000/api/tasks/10
+TASK-API-KEY: RAHASIA
 Accept: application/json

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"studi-kasus-restful-api/exception"
+	"studi-kasus-restful-api/middleware"
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
@@ -36,7 +37,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    "localhost:3000",
-		Handler: router,
+		Handler: middleware.NewAuthMiddleware(router),
 	}
 
 	fmt.Println("Server is running on http://localhost:3000")
