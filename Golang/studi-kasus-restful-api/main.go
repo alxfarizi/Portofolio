@@ -3,18 +3,16 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"studi-kasus-restful-api/exception"
 	"studi-kasus-restful-api/middleware"
-
-	"github.com/go-playground/validator/v10"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/julienschmidt/httprouter"
 
 	"studi-kasus-restful-api/app"
 	"studi-kasus-restful-api/controller"
 	"studi-kasus-restful-api/helper"
 	"studi-kasus-restful-api/repository"
 	"studi-kasus-restful-api/service"
+
+	"github.com/go-playground/validator/v10"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
@@ -25,15 +23,7 @@ func main() {
 	taskService := service.NewTaskService(taskRepository, db, validate)
 	taskController := controller.NewTaskController(taskService)
 
-	router := httprouter.New()
-
-	router.GET("/api/tasks", taskController.FindAll)
-	router.GET("/api/tasks/:taskId", taskController.FindById)
-	router.POST("/api/tasks", taskController.Create)
-	router.PUT("/api/tasks/:taskId", taskController.Update)
-	router.DELETE("/api/tasks/:taskId", taskController.Delete)
-
-	router.PanicHandler = exception.ErrorHandler
+	router := app.NewRouter(taskController)
 
 	server := http.Server{
 		Addr:    "localhost:3000",
