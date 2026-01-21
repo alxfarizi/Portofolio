@@ -75,7 +75,28 @@ func TestCreateTaskSuccess(t *testing.T) {
 }
 
 func TestCreateTaskFailed(t *testing.T) {
+	db := setupTestDB()
+	truncateTask(db)
+	router := setupRouter(db)
 
+	requestBody := strings.NewReader(`{"title":"","description":"Test Description","status":"done","deadline":"2026-01-20T00:00:00Z"}`)
+	request := httptest.NewRequest(http.MethodPost, "http://localhost:3000/api/tasks", requestBody)
+	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("TASK-API-KEY", "RAHASIA")
+
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 400, response.StatusCode)
+
+	body, _ := io.ReadAll(response.Body)
+	var responseBody map[string]interface{}
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, 400, int(responseBody["code"].(float64)))
+	assert.Equal(t, "BAD REQUEST", responseBody["status"])
 }
 
 func TestUpdateTaskSuccess(t *testing.T) {
