@@ -7,7 +7,7 @@ import (
 )
 
 func NewDB() *sql.DB {
-	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/studi-kasus-restful-api?parseTime=true")
+	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/studi_kasus_restful_api?parseTime=true")
 	helper.PanicIfError(err)
 
 	db.SetMaxIdleConns(5)
