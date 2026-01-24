@@ -1,0 +1,40 @@
+### Get All Categories
+GET http://localhost:3000/api/tasks
+TASK-API-KEY: RAHASIA
+Accept: application/json
+
+### Create New Category
+POST http://localhost:3000/api/tasks
+TASK-API-KEY: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Manual Testing Task",
+  "description": "This task involves manual testing of the application.",
+  "status": "pending",
+  "deadline": "2026-01-19T13:50:00Z"
+}
+
+### Get Category by ID
+GET http://localhost:3000/api/tasks/100
+TASK-API-KEY: RAHASIA
+Accept: application/json
+
+### Update Category by ID
+PUT http://localhost:3000/api/tasks/10
+TASK-API-KEY: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Manual Testing Task - Updated",
+  "description": "This task involves manual testing of the application with additional test cases.",
+  "status": "in_progress",
+  "deadline": "2026-01-19T13:52:00Z"
+}
+
+### Delete Category by ID
+DELETE http://localhost:3000/api/tasks/10
+TASK-API-KEY: RAHASIA
+Accept: application/json
