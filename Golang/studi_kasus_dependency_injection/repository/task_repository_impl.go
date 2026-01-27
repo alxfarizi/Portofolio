@@ -11,7 +11,7 @@ import (
 type TasksRepositoryImpl struct {
 }
 
-func NewTaskRepository() TasksRepository {
+func NewTaskRepository() *TasksRepositoryImpl {
 	return &TasksRepositoryImpl{}
 }
 
